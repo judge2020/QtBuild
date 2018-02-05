@@ -44,4 +44,4 @@ build_script:
 
     configure -prefix %CD%\qtbase -opensource -nomake tests -nomake examples -confirm-license -release
 
-    jom
+    nmake
