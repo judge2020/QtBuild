@@ -1,5 +1,13 @@
 version: hard.to.build.v{build}
-image: Visual Studio 2015
+
+environment:
+    fast_finish: true
+    matrix:
+        - VSVER: 14
+
+configuration:
+    - plain
+
 install:
 - cmd: cd C:\
 - cmd: git clone https://github.com/qt/qt5 QtBuild
