@@ -1,0 +1,39 @@
+version: hard.to.build.v{build}
+image: Visual Studio 2015
+install:
+- cmd: cd C:\
+- cmd: git clone https://github.com/qt/qt5 QtBuild
+- cmd: cd QtBuild
+- cmd: perl init-repository
+
+before_build:
+    - ps: >-
+        If ($env:Platform -Match "x86") {
+            $env:VCVARS_PLATFORM="x86"
+            $env:TARGET="VC-WIN32 no-asm"
+        } Else {
+            $env:VCVARS_PLATFORM="amd64"
+            $env:TARGET="VC-WIN64A-masm"
+        }
+    - ps: >-
+        If ($env:Configuration -Match "shared") {
+            $env:SHARED=""
+        } Else {
+            $env:SHARED="no-shared"
+        }
+    - ps: $env:VSCOMNTOOLS=(Get-Content ("env:VS" + "$env:VSVER" + "0COMNTOOLS"))
+    - call "%VSCOMNTOOLS%\..\..\VC\vcvarsall.bat" %VCVARS_PLATFORM%
+    
+build_script:
+- cmd: >-
+    set JOMURL="http://download.qt.io/official_releases/jom/jom.zip"
+
+    appveyor DownloadFile %JOMURL% -FileName jom.zip
+
+    7z x jom.zip -ojom > nul
+
+    copy jom\jom.exe C:\Perl\bin\jom.exe
+
+    configure -prefix %CD%\qtbase -opensource -nomake tests -nomake examples -confirm-license -release
+
+    jom
