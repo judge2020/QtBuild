@@ -7,6 +7,6 @@ git:
 script:
   - cd ../..
   - git clone https://github.com/qt/qt5 Qt && cd Qt
-  - git submodule update --init --recursive
+  - perl init-repository
   - ./configure -prefix $PWD/qtbase -opensource -nomake tests -nomake examples -confirm-license -release
   - travis_wait 200 make -j 4 --silent
