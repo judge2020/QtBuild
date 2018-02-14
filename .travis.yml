@@ -10,3 +10,4 @@ script:
   - perl init-repository --module-subset=qtbase,qtlocation,qtdeclarative
   - ./configure -prefix $PWD/qtbase -opensource -nomake tests -nomake examples -confirm-license -release
   - travis_wait 200 make -j 4 --silent
+  - make test
