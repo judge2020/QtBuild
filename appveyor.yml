@@ -42,6 +42,8 @@ build_script:
 
     copy jom\jom.exe C:\Perl\bin\jom.exe
 
-    configure -prefix %CD%\qtbase -opensource -nomake tests -nomake examples -confirm-license -release
+    configure -prefix %CD%\qtbase -opensource -nomake examples -confirm-license -release -maketool jom
 
-    nmake
+    jom
+    
+    jom test
