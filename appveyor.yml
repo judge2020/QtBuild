@@ -12,7 +12,7 @@ install:
 - cmd: cd C:\
 - cmd: git clone https://github.com/qt/qt5 QtBuild
 - cmd: cd QtBuild
-- cmd: perl init-repository --module-subset=qtbase,qtdeclarative,qtlocation-qtwebkit
+- cmd: perl init-repository --module-subset=qtbase,qtdeclarative,qtlocation,-qtwebkit
 
 before_build:
     - ps: >-
