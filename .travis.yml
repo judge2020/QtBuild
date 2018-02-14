@@ -7,7 +7,7 @@ git:
 script:
   - cd ../..
   - git clone https://github.com/qt/qt5 Qt && cd Qt
-  - perl init-repository --module-subset=qtbase,qtlocation,qtdeclarative
+  - perl init-repository --module-subset=qtbase
   - ./configure -prefix $PWD/qtbase -opensource -nomake tests -nomake examples -confirm-license -release
   - travis_wait 200 make -j 4 --silent
   - make test
